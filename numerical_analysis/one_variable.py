@@ -1,4 +1,4 @@
-import * from exceptions
+from exceptions import ValueError 
 import numpy as np
 import math
 
