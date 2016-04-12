@@ -7,6 +7,7 @@ Created on Tue Feb 16 01:28:15 2016
 
 import numpy as np
 from exceptions import ValueError
+import math
 
 def derivative(f, x, i, h = 1e-05):
     tempX = x
@@ -44,7 +45,8 @@ def newton_nonlinear(F, x, N, TOL = 1e-08):
             k = k + 1
     raise ValueError('maximum number of iterations exceeded-the procedure was unsuccessful')
 
-def Broyden(F, x, TOL = 1e-05, N):
+
+def Broyden(F, x, N, TOL = 1e-05):
     J = Jacobi(F)
     j = np.matrix([[],[]])
     j.reshape((len(F),len(F)))
