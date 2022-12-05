@@ -1,6 +1,26 @@
 import numpy as np
 import math
 
+"""returns array of pair of values resulting from the Euler method of a numerical approximation of a initial value problem ordinary differential equation
+Parameters
+----------
+a : float
+    left end point
+b : float
+    right end point
+N : int
+    number of iteerations to try before stopping the solution search
+alpha : float
+    initial value of the problem
+Returns
+-------
+array of t, w
+    pairs of values of the results at each step of the solution search
+Raises
+------
+ValueError
+    The number of itereations used to try and find the f(x)=0 approximation
+"""
 def euler(f, a, b, N = 100, alpha):
     h = (b - a) / N
     t = a
