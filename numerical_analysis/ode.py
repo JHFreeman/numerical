@@ -10,7 +10,7 @@ def eulers(f, a, b, N, alpha):
     for i in range(1, N + 1, 1):
         w += h * f(t, w)
         t = a + i * h
-        yield (t, w)
+       
 
 def rungekutta(f, a, b, N, alpha):
     h = (b - a) / N
@@ -25,14 +25,13 @@ def rungekutta(f, a, b, N, alpha):
         
         w += (K1 + 2. * K2 + 2. * K3 + K4) / 6.
         t = a + i * h
-        yield (t, w)
+        
         
 def rungekuttafehlberg(f, a, b, alpha, TOL, hmax, hmin):
     t = a
     w = alpha
     h = hmax
     FLAG = 1
-    yield (t, w, h)
     quarter = 1. / 4.
     eigth = 1. / 8.
     thirtysecondth = 1. / 32.
@@ -52,7 +51,7 @@ def rungekuttafehlberg(f, a, b, alpha, TOL, hmax, hmin):
         if R <= TOL:
             t += h
             w += 25 * K1 * twohundredsixteenth + 1408 * K3 / 2565. + 2197. * K4 * fourthousandonehundredfourth - K5 / 5.
-            yield (t, w, h)
+            
         delta = 0.84 * (TOL / R) ** 0.25
         if delta <= 0.1:
             h = 0.1 * h
@@ -68,14 +67,13 @@ def rungekuttafehlberg(f, a, b, alpha, TOL, hmax, hmin):
             h = b - t
         elif h < hmin:
             FLAG = 0
-            raise ValueError('minimum h exceeded, hmin = {hm}'.format(hm=hmin)))
+            
         
             
 def adams_fourthorder_predictorcorrector(f, a, b, N, alpha):
     h = (b - a) / N
     t = np.array([a])
     w = np.array([alpha])
-    yield (t[0], w[0])
     for i in range(1, 4, 1):
         K1 = h * f(t[i - 1], w[i - 1])
         K2 = h * f(t[i - 1] + h / 2., w[i - 1] + K1 / 2.)
@@ -84,12 +82,10 @@ def adams_fourthorder_predictorcorrector(f, a, b, N, alpha):
         
         w[i] = w[i - 1] + (K1 + 2. * K2 + 2. * K3 + K4) / 6.
         t[i] = a + i * h
-        yield (t[i], w[i])
     for i in range(4, N + 1, 1):
         ti = a + i * h
         wi = w[3] + h * (55. * f(t[3], w[3]) - 59. * f(t[2], w[2]) + 37. * f(t[1], w[1]) - 9. * f(t[0], w[0])) / 24.
         wi = w[3] + h * (9 * f(ti, wi) + 19. * f(t[3], w[3]) - 5 * f(t[2], w[2]) + f(t[1], w[1])) / 24.
-        yield (ti, wi)
         for j in range(0, 3, 1):
             t[j] = t[j + 1]
             w[j] = w[j + 1]
@@ -159,7 +155,6 @@ def rungekutta_systems(f, a, b, m, N, alpha):
     t = a
     for j in range(0, m, 1):
         w[j] = alpha[j]
-    yield (t, w)
     for i in range(0, N, 1):
         for j in range(0, m, 1):
             k[0, j] = h * f[j](t, w)
@@ -172,5 +167,4 @@ def rungekutta_systems(f, a, b, m, N, alpha):
         for j in range(0, m, 1):
             w += (k[0,:] + 2. * k[1,:] + 2. * k[2,:] + k[3,:]) / 6.
         t = a + i * h
-        yield (t, w)
         
