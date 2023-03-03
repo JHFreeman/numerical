@@ -7,10 +7,6 @@ Created on Tue Feb 16 01:28:15 2016
 
 import numpy as np
 import math
-
-def derivative(f, x, i, h = 1e-05):
-    tempX = x
-    tempX[i] = x[i] + h
     
 def JacobiMatrix(F, x, h = 1e-05):
     J = np.matrix([[],[]])
