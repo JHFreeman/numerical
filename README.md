@@ -1,5 +1,7 @@
 # numerical
 
+A numerical analysis library primarly from my undergraduate in mathematics degree course for Numerical Analysis 8th Edition by Richard L. Burden and J. Douglas Faires
+
 The currently maintained version of this package as JHFreeman is being an unrecoverable account at this time.
 
 Differentiation and Integration
