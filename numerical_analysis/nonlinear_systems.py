@@ -6,13 +6,11 @@ Created on Tue Feb 16 01:28:15 2016
 """
 
 import numpy as np
-from exceptions import ValueError
 import math
 
 def derivative(f, x, i, h = 1e-05):
     tempX = x
     tempX[i] = x[i] + h
-    return (f(tempX) - f(x)) / h
     
 def JacobiMatrix(F, x, h = 1e-05):
     J = np.matrix([[],[]])
@@ -20,7 +18,6 @@ def JacobiMatrix(F, x, h = 1e-05):
     for i in range(0, len(F)):
         for j in range(0, len(F)):
             J[i][j] = derivative(F[i], x, j, h)
-    return J
 
 
 def newton_nonlinear(F, x, N, TOL = 1e-08):
@@ -41,9 +38,8 @@ def newton_nonlinear(F, x, N, TOL = 1e-08):
             y = np.linalg.solve(tempJ, -tempF)
             X = X + y
             if max(y) < TOL:
-                return X
+                return
             k = k + 1
-    raise ValueError('maximum number of iterations exceeded-the procedure was unsuccessful')
 
 
 def Broyden(F, x, N, TOL = 1e-05):
@@ -75,9 +71,8 @@ def Broyden(F, x, N, TOL = 1e-05):
         s = -A * v
         X = X + s
         if max([math.abs(i) for i in s]) < TOL:
-            return x
+            return
         k = k + 1
-    raise ValueError('Maximum number of iterations exceeded')
     
 def Continuation(F, N, x):
     h = 1 / N
@@ -92,7 +87,7 @@ def Continuation(F, N, x):
         k3 = np.linalg.solve(J(x + 0.5 *k2),b)
         k4 = np.linalg.solve(J(x + k3),b)
         x = x + (k1 + 2 * k2 + 2 * k3 + k4) / 6.
-    return x
+    return
     
 def derivative(f, i, h = 1e-05):
     def deri(f,x):
@@ -104,8 +99,8 @@ def derivative(f, i, h = 1e-05):
         xaddh[i] = x[i] + h
         xadd2h = x
         xadd2h[i] = x[i] + 2 * h
-        return (f(xminus2h) + 8 * (f(xaddh) - f(xminush)) - f(xadd2h)) / 12 / h
-    return deri
+        return
+    return 
     
 def Jacobi(F, h = 1e-05):
     def J(x):
@@ -113,8 +108,8 @@ def Jacobi(F, h = 1e-05):
         for i in range(0, len(F)):
             for k in range(0, len(F)):
                 j[k][i] = derivative(F[k], i, h)
-        return j
-    return J
+        return
+    return
     
         
             
