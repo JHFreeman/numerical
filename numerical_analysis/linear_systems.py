@@ -1,6 +1,5 @@
 import numpy as np
 import math
-from exceptions import ValueError
 
 def swapRows(A, i, j):
     k = A.shape[0]
