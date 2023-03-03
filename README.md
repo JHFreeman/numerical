@@ -29,3 +29,12 @@ Non-Linear Systems
 - Broyden
 - Continuation
 
+One Variable Solutions for root finding
+- bisection
+- Fixed Point iteration
+- Newton's method
+- Secant method
+- Regula Falsi (Method of False Position)
+- Steffensen's
+- Horner's
+- Muller's
