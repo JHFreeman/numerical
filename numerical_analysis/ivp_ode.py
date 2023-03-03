@@ -95,7 +95,7 @@ def runge_kutta_systems_of_differential_equations(f, a, b, m, N = 100, alpha):
         for j in range(0, m):
             w[j] = w[j] + (k[0][j] + 2 * k[1][j] + 2 * k[2][j] + k[3][j])
         t = a + i * h
-
+        
 def trapeziodal_with_newton_iteration(f, f_y, a, b, N = 100, alpha, TOL = 1e-08, M):
     h = (b - a) / N
     t = a
@@ -116,3 +116,76 @@ def trapeziodal_with_newton_iteration(f, f_y, a, b, N = 100, alpha, TOL = 1e-08,
                     return
         t = a + i * h
 
+def extrapolation(f, a, b, alpha, TOL, hmax, hmin):
+    NK = np.array([2, 4, 6, 8, 12, 16, 24, 32])
+    TO = a
+    WO = alpha
+    h = hmax
+    FLAG = 1
+    Q = np.array([[]])
+    Q.resize((7, 7))
+    for i in range(0, 7, 1):
+        for j in range(0, i + 1, 1):
+            Q[i, j] = (NK[i + 1] / NK[j]) ** 2
+    while FLAG == 1:
+        k = 0
+        NFLAG = 0
+        y = np.array([])
+        y.resize((8))
+        while k < 8 and NFLAGS == 0:
+            HK = h / NK[k]
+            T = TO
+            W2 = WO
+            W3 = W2 + HK * f(T, W2)
+            for j in range(1, NK[k] - 1):
+                W1 = W2 
+                W2 = W3 
+                W3 = W1 + 2. * HK * f(T, W2)
+                T = TO + (j + 1) * HK
+            y[k] = (W3 + W2 + HK * f(T, W3)) / 2.
+            if k >= 1:
+                j = k
+                v = y[0]
+                while j >= 1:
+                    y[j - 1] = y[j] + (y[j] - y[j - 1]) / (Q[k - 1, j - 1] - 1)
+                    j -= 1
+                if abs(y[0] - v) <= TOL:
+                    NFLAG = 1
+            k += 1
+        k -= 1
+        if NFLAG == 0:
+            h = h / 2.
+            if h < hmin:
+                FLAG = 0
+        else:
+            WO = y[0]
+            TO += h
+            if TO >= b:
+                FLAG = 0
+            elif TO + h > b:
+                h = b - TO
+            elif k <= 3 and h < 0.5 * hmax:
+                h = 2. * h
+
+                
+def rungekutta_systems(f, a, b, m, N, alpha):
+    w = np.array([])
+    w.resize((m))
+    k = np.array([[]])
+    k.resize((4,m))
+    h = (b - a) / N
+    t = a
+    for j in range(0, m, 1):
+        w[j] = alpha[j]
+    for i in range(0, N, 1):
+        for j in range(0, m, 1):
+            k[0, j] = h * f[j](t, w)
+        for j in range(0, m, 1):
+            k[1, j] = h * f[j](t + 0.5 * h, w + 0.5 * k[0, :])
+        for j in range(0, m, 1):
+            k[2, j] = h * f[j](t + 0.5 * h, w + 0.5 * k[1, :])
+        for j in range(0, m, 1):
+            k[3, j] = h * f[j](t + h, w + k[2,:])
+        for j in range(0, m, 1):
+            w += (k[0,:] + 2. * k[1,:] + 2. * k[2,:] + k[3,:]) / 6.
+        t = a + i * h
