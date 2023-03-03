@@ -11,12 +11,12 @@ def swapRows(A, i, j):
         A[i][p] = A[j][p]
     for p in range(0, k):
         A[j][p] = tempRow[p]
-    return A
+    return
 
 def gaussian_with_backward_substitution(A):
     n = A.shape[0]
     if n + 1 != A.shape[1]:
-        raise ValueError('Invalid Matrix Size')
+        return
     m = np.matrix([[],[]])
     m.reshape((n,n))
     for i in range(0, n):
@@ -26,14 +26,14 @@ def gaussian_with_backward_substitution(A):
                 p = j
                 break
             if p == -1:
-                raise ValueError('no unique solution exists')
+                return
         if p != i:
             A = swapRows(A, i, p)
         for j in range(i + 1, n + 1):
             m[j][i] = A[j][i] / A[i][i]
             A[j] = A[j] - m[j][i] * A[i]
     if A[0][0] == 0:
-        raise ValueError('no unique solution exists')
+        return
     x = np.array([])
     x[n-1] = A[n-1][n]/A[n-1][n-1]
     for i in range(n-2, -1, -1):
@@ -41,5 +41,5 @@ def gaussian_with_backward_substitution(A):
         for j in range(i + 1, n - 1):
             s = s + A[i][j] * x[j]
         x[i] = (A[i][n+1] - s) / A[i][i]
-    return x
+    return
     
