@@ -20,6 +20,7 @@ Initial Value Problem Ordinary Differential Equations
 - Adam's fourth order predictor corrector
 - Runge Kutta System's of differential equations
 - Trapezoidal with Newton's iteration
+- Extrapolation
 
 Linear Systems
 - Guassian with backwards substitution
