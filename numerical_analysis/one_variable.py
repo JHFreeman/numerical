@@ -1,4 +1,3 @@
-from exceptions import ValueError 
 import numpy as np
 import math
 
@@ -123,7 +122,4 @@ def mullers(f, p0, p1, p2, TOL, N0):
         delta2 = (f(p2) - f(p1)) / h2
         d = (delta2 - delta1) / (h2 + h1)
         i += 1
-    
-    
-
-    
+        
