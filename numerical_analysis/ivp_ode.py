@@ -22,7 +22,7 @@ def runge_kutta_order_four(f, a, b, N = 100, alpha):
         w = w + (K1 + 2 * K2 + 2 * K3 + K4) / 6.
         t = a + i * h
 
-def rune_kutta_fehlberg(f, a, b, alpha, TOL = 1e-08, hmax, hmin):
+def runge_kutta_fehlberg(f, a, b, alpha, TOL = 1e-08, hmax, hmin):
     t = a
     w = alpha
     h = hmax
@@ -166,26 +166,3 @@ def extrapolation(f, a, b, alpha, TOL, hmax, hmin):
                 h = b - TO
             elif k <= 3 and h < 0.5 * hmax:
                 h = 2. * h
-
-                
-def rungekutta_systems(f, a, b, m, N, alpha):
-    w = np.array([])
-    w.resize((m))
-    k = np.array([[]])
-    k.resize((4,m))
-    h = (b - a) / N
-    t = a
-    for j in range(0, m, 1):
-        w[j] = alpha[j]
-    for i in range(0, N, 1):
-        for j in range(0, m, 1):
-            k[0, j] = h * f[j](t, w)
-        for j in range(0, m, 1):
-            k[1, j] = h * f[j](t + 0.5 * h, w + 0.5 * k[0, :])
-        for j in range(0, m, 1):
-            k[2, j] = h * f[j](t + 0.5 * h, w + 0.5 * k[1, :])
-        for j in range(0, m, 1):
-            k[3, j] = h * f[j](t + h, w + k[2,:])
-        for j in range(0, m, 1):
-            w += (k[0,:] + 2. * k[1,:] + 2. * k[2,:] + k[3,:]) / 6.
-        t = a + i * h
