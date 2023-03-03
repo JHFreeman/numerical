@@ -39,3 +39,8 @@ One Variable Solutions for root finding
 - Steffensen's
 - Horner's
 - Muller's
+
+Other functions
+- linear_systems.swapRows
+- nonlinear_systems.derivative
+- nonlinear_systems.Jacobi
