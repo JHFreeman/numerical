@@ -1,5 +1,4 @@
 import numpy as np
-import * from exceptions
 
 def nevills(xf = [(,)]):
     Q = np.array([[]])
@@ -10,7 +9,6 @@ def nevills(xf = [(,)]):
         for j in range(1:i+1):
             Q[i,j] = lambda x: math.exp(math.log((x - xf[i-j][0]) * Q[i,j-1](x) - (x - xf[i][0]) * Q[i - 1, j - 1](x)) - 
                                         math.log(xf[i][0] - xf[i - j][0]))
-    return Q[len(xf) - 1, len(xf) - 1]
 
 def newtons_divideddifference(xf = [(,)]):
     F = np.array([[]])
@@ -23,8 +21,7 @@ def newtons_divideddifference(xf = [(,)]):
             F[i,j] = lambda x: math.exp(math.log(F[i, j - 1](x) - F[i - 1, j - 1](x)) - math.log(xf[i][0] - x[i - j][0]))
     for i in range(0:len(xf)):
         F0 = F[i,i]
-        
-    return F0
+       
 
 def natural_cubic_spline(xa = [(,)]):
     S = np.array([])
@@ -54,11 +51,8 @@ def natural_cubic_spline(xa = [(,)]):
         c[j] = z[j] - mu[j] * c[j + 1]
         b[j] = (xa[j + 1][1] - xa[j][1]) / hi[j] - hi[j] * (c[j + 1] + 2. * c[j]) / 3.
         d[j] = (c[j + 1] - c[j]) / (3. * hi[j])
-    
     for j in range(0, len(xa) - 1, 1):
         S = lambda x: a[j] + b[j] * (x - xa[j][0]) + c[j] * (x - xa[j][0]) ** 2 + d[j] * (x - xa[j][0]) ** 3
-    
-    return S
 
 def bezier_curve(xy = np.array([(,)]), xy_plus = np.array([(,)]), xy_minus = np.array([(,)])):
     a0 = np.array([0])
@@ -78,5 +72,3 @@ def bezier_curve(xy = np.array([(,)]), xy_plus = np.array([(,)]), xy_minus = np.
         C[i] = lambda t: return (a0[i] + a1[i] * t + a2[i] * t ** 2 + a3[i] * t ** 3, 
                                  b0[i] + b1[i] * t + b2[i] * t ** 2 + b3[i] * t ** 3)
     
-    return C
-

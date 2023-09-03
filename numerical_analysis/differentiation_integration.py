@@ -1,6 +1,5 @@
 import math
 import numpy as np
-from exceptions import ValueError 
 
 def simpson(f, a, b, n):
     h = (b - a) / n
@@ -14,7 +13,6 @@ def simpson(f, a, b, n):
         else:
             XI1 = XI1 + f(X)
     XI = h * (XI0 + 2 * XI2 + 4 * XI1) / 3.
-    return XI
 
 def adaptive_quadrature(f, a, b, TOL, N):
     APP = 0
@@ -46,7 +44,7 @@ def adaptive_quadrature(f, a, b, TOL, N):
             APP += S1 + S2
         else:
             if v8 >= N:
-                raise ValueError('LEVEL EXCEEDED')
+               return
             else:
                 i += 1
                 ai[i] = v1 + v5
@@ -66,7 +64,6 @@ def adaptive_quadrature(f, a, b, TOL, N):
                 TOLi[i] = TOL[i - 1]
                 S[i] = S1
                 L[i] = L[i - 1]
-    return APP
 
 def simpsons_double(f, a, b, c, d, m, n):
     h = (b - a) / n
@@ -94,4 +91,3 @@ def simpsons_double(f, a, b, c, d, m, n):
         else:
             J3 += L
     J = h * (J1 + 2. * J2 + 4. * J3) / 3.
-    return J
