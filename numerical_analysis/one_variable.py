@@ -53,7 +53,7 @@ def secant(f, p0, p1, TOL, N0):
         q1 = f(p)
     raise ValueError('Method failed after N0 iterations, N0 = {N}'.format(N=N0))
     
-def false_position(f, p0, p1, TOL, N0):
+def regulaFalsi(f, p0, p1, TOL, N0):
     i = 2
     q0 = f(p0)
     q1 = f(p1)
